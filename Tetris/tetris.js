@@ -29,7 +29,7 @@ function startGame() {
   player = new piece(4, 0, selectPiece());
   player.setupPiece();
   player.drawPiece();
-  window.addEventListener('keypress', keypress);
+  window.addEventListener('keydown', keypress);
   window.addEventListener('keyup', keyup);
   gameInterval = setInterval(tick, 600);
 }
@@ -341,10 +341,10 @@ function keyup(e) {
 }
 
 function keypress(e) {
+  //console.log(e.which);
   var moved = false;
-  console.log(e.keyCode);
   switch (e.keyCode) {
-    case 0:
+    case 32:
       replace();
       break;
     case 38:
@@ -366,7 +366,7 @@ function keypress(e) {
   }
   if(moved) {
     movePlayer();
-  } else if (e.keyCode == 40 || e.keyCode == 0) {
+  } else if (e.keyCode == 40 || e.keyCode == 32) {
       newPiece();
   }
 }
