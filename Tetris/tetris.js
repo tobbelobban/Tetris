@@ -2,9 +2,11 @@
 var player;
 var canvas;
 var ctx;
+var speed = 1;
 var gameInterval;
 var released = true;
 var score = 0;
+var nextGoal = 20;
 var piecePlaced = 0;
 
 var tiles = {
@@ -199,10 +201,10 @@ function piece(x, y, type) {
     ctx.fillRect(this.x4*30, this.y4*30, 30, 30);
   }
   this.canDrop = function() {
-    if(tiles.board[this.x][this.y + 1].value ||
-       tiles.board[this.x2][this.y2 + 1].value ||
-       tiles.board[this.x3][this.y3 + 1].value ||
-       tiles.board[this.x4][this.y4 + 1]. value) {
+    if(tiles.board[this.x][this.y + speed].value ||
+       tiles.board[this.x2][this.y2 + speed].value ||
+       tiles.board[this.x3][this.y3 + speed].value ||
+       tiles.board[this.x4][this.y4 + speed]. value) {
          return false;
     }
     return true;
@@ -212,10 +214,10 @@ function piece(x, y, type) {
       return false;
     }
     this.saveOld();
-    this.y++;
-    this.y2++;
-    this.y3++;
-    this.y4++;
+    this.y += speed;
+    this.y2 += speed;
+    this.y3 += speed;
+    this.y4 += speed;
     return true;
   }
   this.moveLeft = function() {
@@ -376,6 +378,10 @@ function tick() {
     newPiece();
   } else {
     movePlayer();
+  }
+  if(score == nextGoal) {
+    nextGoal += 20;
+    speed += 1;
   }
 }
 
